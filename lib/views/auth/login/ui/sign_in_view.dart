@@ -1,8 +1,10 @@
 // screens/login_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mothmerah_app/core/assets/img_manager.dart';
 import 'package:mothmerah_app/core/extensions/navigation.dart';
+import 'package:mothmerah_app/core/helpers/spacing.dart';
 import 'package:mothmerah_app/core/routing/app_router.dart';
 import 'package:mothmerah_app/core/theme/colors.dart';
 import 'package:mothmerah_app/core/theme/text_styles.dart';
@@ -43,7 +45,14 @@ class SignInView extends StatelessWidget {
                       height: 100,
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  verticalSpace(42.h),
+                  Align(
+                    child: Text(
+                      'لتسجيل الدخول إلى حسابك',
+                      style: TextStyles(context).font20PrimaryMedium,
+                    ),
+                  ),
+                  verticalSpace(40.h),
 
                   AppTextFormField(
                     controller: _emailController,

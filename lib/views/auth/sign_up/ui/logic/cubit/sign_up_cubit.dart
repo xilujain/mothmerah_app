@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:mothmerah_app/views/auth/login/data/sign_in_model.dart';
 import 'package:mothmerah_app/views/auth/sign_up/ui/logic/cubit/sign_up_state.dart';
 
-
 class SignupCubit extends Cubit<SignupState> {
   SignupCubit() : super(const SignupState());
 
@@ -53,6 +52,12 @@ class SignupCubit extends Cubit<SignupState> {
     }
   }
 
+  void toggleTerms(bool accepted) {
+    if (state.acceptedTerms != accepted) {
+      emit(state.copyWith(acceptedTerms: accepted, error: null));
+    }
+  }
+
   Future<void> signup() async {
     // Validate inputs
     if (state.name.isEmpty || 
@@ -68,7 +73,7 @@ class SignupCubit extends Cubit<SignupState> {
 
     if (!state.email.contains('@')) {
       emit(state.copyWith(
-        error: 'البريد الإلكتروني غير صالح',
+        error: 'البريد الالكتروني غير صالح',
         isLoading: false,
       ));
       return;
@@ -76,7 +81,7 @@ class SignupCubit extends Cubit<SignupState> {
 
     if (state.password.length < 8) {
       emit(state.copyWith(
-        error: 'كلمة المرور التي أدخلتها أقل من 8 أحرف',
+        error: 'كلمة المرور يجب أن تكون على الأقل مكونة من ٨ أحرف',
         isLoading: false,
       ));
       return;
@@ -84,7 +89,15 @@ class SignupCubit extends Cubit<SignupState> {
 
     if (state.password != state.confirmPassword) {
       emit(state.copyWith(
-        error: 'كلمتا المرور غير متطابقتان',
+        error: 'كلمتا المرور غير متطابقتين',
+        isLoading: false,
+      ));
+      return;
+    }
+
+    if (!state.acceptedTerms) {
+      emit(state.copyWith(
+        error: 'Please accept the Terms and Conditions',
         isLoading: false,
       ));
       return;
@@ -93,7 +106,7 @@ class SignupCubit extends Cubit<SignupState> {
     // Check if user already exists
     if (_registeredUsers.containsKey(state.email)) {
       emit(state.copyWith(
-        error: 'الحساب موجود بالفعل',
+        error: 'البريد الالكتروني موجود بالفعل',
         isLoading: false,
       ));
       return;

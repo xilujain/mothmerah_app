@@ -1,14 +1,17 @@
-import 'package:flutter/gestures.dart';
+// screens/signup_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mothmerah_app/core/assets/img_manager.dart';
 import 'package:mothmerah_app/core/extensions/navigation.dart';
+import 'package:mothmerah_app/core/helpers/spacing.dart';
 import 'package:mothmerah_app/core/routing/app_router.dart';
 import 'package:mothmerah_app/core/theme/text_styles.dart';
 import 'package:mothmerah_app/core/widgets/app_text_form_field.dart';
 import 'package:mothmerah_app/core/widgets/main_button.dart';
 import 'package:mothmerah_app/views/auth/sign_up/ui/logic/cubit/sign_up_cubit.dart';
 import 'package:mothmerah_app/views/auth/sign_up/ui/logic/cubit/sign_up_state.dart';
+import 'package:mothmerah_app/views/auth/sign_up/ui/widgets/terms_and_conditions_dialog.dart';
 
 class SignUpView extends StatelessWidget {
   SignUpView({super.key});
@@ -18,15 +21,21 @@ class SignUpView extends StatelessWidget {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
+  void _showTermsDialog(BuildContext context) {
+    showDialog(context: context, builder: (context) => const TermsDialog());
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SignupCubit(),
       child: Scaffold(
+        appBar: AppBar(),
         body: BlocConsumer<SignupCubit, SignupState>(
           listener: (context, state) {
+            // Handle successful signup
             if (state.user != null) {
-              context.pushReplacementNamed('/splash');
+              context.pushReplacementNamed(Routes.splashView);
             }
           },
           builder: (context, state) {
@@ -34,22 +43,17 @@ class SignUpView extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
-
                   Image.asset(ImageManager.logo, width: 80, height: 80),
-                  const SizedBox(height: 40),
-
-                  // Name Field
+                  verticalSpace(20.h),
+                  verticalSpace(40.h),
                   AppTextFormField(
-                    hintText: 'الاسم الكامل',
                     controller: _nameController,
+                    hintText: 'الاسم الكامل',
                     onChanged: (value) {
                       context.read<SignupCubit>().updateName(value);
                     },
                   ),
-                  const SizedBox(height: 20),
-
-                  // Email Field
+                  verticalSpace(20.h),
                   AppTextFormField(
                     controller: _emailController,
                     hintText: 'البريد الإلكتروني',
@@ -57,9 +61,7 @@ class SignUpView extends StatelessWidget {
                       context.read<SignupCubit>().updateEmail(value);
                     },
                   ),
-                  const SizedBox(height: 20),
-
-                  // Password Field
+                  verticalSpace(20.h),
                   AppTextFormField(
                     controller: _passwordController,
                     isObscureText: true,
@@ -68,9 +70,7 @@ class SignUpView extends StatelessWidget {
                       context.read<SignupCubit>().updatePassword(value);
                     },
                   ),
-                  const SizedBox(height: 20),
-
-                  // Confirm Password Field
+                  verticalSpace(20.h),
                   AppTextFormField(
                     controller: _confirmPasswordController,
                     isObscureText: true,
@@ -79,10 +79,64 @@ class SignUpView extends StatelessWidget {
                       context.read<SignupCubit>().updateConfirmPassword(value);
                     },
                   ),
+                  verticalSpace(20.h),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.grey[300]!),
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      children: [
+                        Checkbox(
+                          value: state.acceptedTerms,
+                          onChanged: (value) {
+                            context.read<SignupCubit>().toggleTerms(
+                              value ?? false,
+                            );
+                          },
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              context.read<SignupCubit>().toggleTerms(
+                                !state.acceptedTerms,
+                              );
+                            },
+                            child: RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 14,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    style: TextStyles(
+                                      context,
+                                    ).font14PrimaryMedium,
+                                    text: 'إقرار بالموافقة على الشروط والأحكام',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.info_outline,
+                            color: Colors.blue[700],
+                            size: 20,
+                          ),
+                          onPressed: () => _showTermsDialog(context),
+                        ),
+                      ],
+                    ),
+                  ),
 
                   // Error Message
                   if (state.error != null) ...[
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
@@ -111,53 +165,36 @@ class SignUpView extends StatelessWidget {
                     ),
                   ],
 
-                  const SizedBox(height: 30),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'للموافقة على الشروط و الأحكام',
-                          style: TextStyles(context).font14PrimaryRegular,
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              context.pushNamed(Routes.loginView);
-                            },
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 30),
+                  verticalSpace(20.h),
 
                   // Sign Up Button
                   MainButton(
                     text: 'تسجيل ',
-                    width: double.infinity,
                     onTap: () => state.isLoading
                         ? null
                         : context.read<SignupCubit>().signup(),
                   ),
 
-                  const SizedBox(height: 60),
+                  verticalSpace(20.h),
 
                   // Login Redirect
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'هل لديك بالفعل حساب؟',
-                          style: TextStyles(context).font14PrimaryRegular,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'لديك بالفعل حساب؟ ',
+                        style: TextStyles(context).font14PrimaryMedium,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.pushReplacementNamed(Routes.loginView);
+                        },
+                        child: Text(
+                          'تسجيل الدخول',
+                          style: TextStyles(context).font14PrimaryMedium,
                         ),
-                        TextSpan(
-                          text: 'سجل دخولك',
-                          style: TextStyles(context).font14PrimaryRegular,
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              context.pushNamed(Routes.loginView);
-                            },
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
 
                   // Demo Note

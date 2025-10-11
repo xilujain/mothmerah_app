@@ -19,6 +19,12 @@ class TextStyles {
     color: ColorsManager.kPrimaryColor,
     fontFamily: 'Tajawal',
   );
+  TextStyle get font14PrimaryMedium => TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.medium,
+    color: ColorsManager.kPrimaryColor,
+    fontFamily: 'Tajawal',
+  );
   TextStyle get font16PrimaryRegular => TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeightHelper.regular,
