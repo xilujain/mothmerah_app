@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mothmerah_app/core/assets/img_manager.dart';
+import 'package:mothmerah_app/views/auth/login/ui/sign_in_view.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
@@ -13,7 +14,7 @@ class SplashView extends StatelessWidget {
         PageRouteBuilder(
           transitionDuration: const Duration(seconds: 1),
           pageBuilder: (_, animation, __) {
-            return FadeTransition(opacity: animation, child: Scaffold());
+            return FadeTransition(opacity: animation, child: SignInView());
           },
         ),
       );
