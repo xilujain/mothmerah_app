@@ -61,9 +61,8 @@ class SignInView extends StatelessWidget {
                       context.read<SignInCubit>().updateEmail(value);
                     },
                   ),
-                  const SizedBox(height: 20),
+                  verticalSpace(20.h),
 
-                  // Password Field
                   AppTextFormField(
                     isObscureText: true,
                     hintText: 'كلمة المرور',
@@ -74,7 +73,7 @@ class SignInView extends StatelessWidget {
                   ),
 
                   if (state.error != null) ...[
-                    const SizedBox(height: 20),
+                    verticalSpace(20.h),
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
@@ -103,7 +102,7 @@ class SignInView extends StatelessWidget {
                     ),
                   ],
 
-                  const SizedBox(height: 30),
+                  verticalSpace(30.h),
                   Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
@@ -128,7 +127,7 @@ class SignInView extends StatelessWidget {
                     },
                   ),
 
-                  const SizedBox(height: 18),
+                  verticalSpace(18.h),
 
                   SecondButton(
                     text: 'تسجيل ',
@@ -137,31 +136,32 @@ class SignInView extends StatelessWidget {
                     },
                   ),
 
-                  const SizedBox(height: 20),
+                  verticalSpace(20.h),
 
                   // Demo Credentials Hint
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Demo Credentials:',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        const Text('user@example.com / password123'),
-                        const Text('admin@example.com / admin123'),
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.all(12),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.grey[100],
+                  //     borderRadius: BorderRadius.circular(8),
+                  //   ),
+                  //   child: Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Text(
+                  //         'Demo Credentials:',
+                  //         style: TextStyle(
+                  //           fontWeight: FontWeight.bold,
+                  //           color: Colors.grey[700],
+                  //         ),
+                  //       ),
+                  //       const SizedBox(height: 4),
+                  //       vertic
+                  //       const Text('user@example.com / password123'),
+                  //       const Text('admin@example.com / admin123'),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             );
