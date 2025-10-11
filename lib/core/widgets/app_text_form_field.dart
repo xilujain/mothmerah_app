@@ -18,7 +18,6 @@ class AppTextFormField extends StatelessWidget {
   final Color? backgroundColor;
   final TextInputType? keyboardType;
   final TextEditingController? controller;
-  final String? Function(String?)? validator;
   final Color? fillColor;
   final int? maxLength;
   final Function(String)? onChanged;
@@ -49,7 +48,6 @@ class AppTextFormField extends StatelessWidget {
     this.backgroundColor,
     this.enabled,
     this.controller,
-    required this.validator,
     this.fillColor,
     this.maxLength,
     this.onChanged,
@@ -91,7 +89,6 @@ class AppTextFormField extends StatelessWidget {
           maxLines: maxLines ?? 1,
           onTap: onTap,
           obscureText: isObscureText ?? false,
-          validator: validator,
           readOnly: readOnly ?? false,
           decoration: InputDecoration(
             helperText: helperText,

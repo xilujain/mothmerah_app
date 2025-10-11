@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mothmerah_app/core/assets/img_manager.dart';
+import 'package:mothmerah_app/views/auth/login/ui/logic/cubit/sign_in_cubit.dart';
 import 'package:mothmerah_app/views/auth/login/ui/sign_in_view.dart';
 
 class SplashView extends StatelessWidget {
@@ -14,7 +16,13 @@ class SplashView extends StatelessWidget {
         PageRouteBuilder(
           transitionDuration: const Duration(seconds: 1),
           pageBuilder: (_, animation, __) {
-            return FadeTransition(opacity: animation, child: SignInView());
+            return FadeTransition(
+              opacity: animation,
+              child: BlocProvider(
+                create: (context) => SignInCubit(),
+                child: SignInView(),
+              ),
+            );
           },
         ),
       );
