@@ -121,7 +121,12 @@ class SignInView extends StatelessWidget {
 
                   const SizedBox(height: 18),
 
-                  SecondButton(text: 'تسجيل ', onTap: () {}),
+                  SecondButton(
+                    text: 'تسجيل ',
+                    onTap: () {
+                      context.pushNamed(Routes.signupView);
+                    },
+                  ),
 
                   const SizedBox(height: 20),
 
