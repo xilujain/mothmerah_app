@@ -17,23 +17,23 @@ import 'package:mothmerah_app/views/auth/login/ui/logic/cubit/sign_in_state.dart
 class SignInView extends StatelessWidget {
   SignInView({super.key});
 
-  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SignInCubit(),
-      child: Scaffold(
-        body: BlocConsumer<SignInCubit, SignInState>(
-          listener: (context, state) {
-            if (state.user != null) {
-              context.pushReplacementNamed('/splash');
-            }
-          },
-          builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.all(20.0),
+    return Scaffold(
+      body: BlocConsumer<SignInCubit, SignInState>(
+        listener: (context, state) {
+          if (state.user != null) {
+            context.pushReplacementNamed(Routes.profileView);
+          }
+        },
+        builder: (context, state) {
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.all(20.w),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -55,10 +55,11 @@ class SignInView extends StatelessWidget {
                   verticalSpace(40.h),
 
                   AppTextFormField(
-                    controller: _emailController,
-                    hintText: 'الايميل',
+                    controller: _phoneController,
+                    hintText: 'رقم الجوال (+966)',
+                    keyboardType: TextInputType.phone,
                     onChanged: (value) {
-                      context.read<SignInCubit>().updateEmail(value);
+                      context.read<SignInCubit>().updatePhoneNumber(value);
                     },
                   ),
                   verticalSpace(20.h),
@@ -164,9 +165,9 @@ class SignInView extends StatelessWidget {
                   // ),
                 ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

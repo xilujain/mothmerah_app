@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mothmerah_app/core/assets/img_manager.dart';
+import 'package:mothmerah_app/views/auth/login/data/login_repository.dart';
 import 'package:mothmerah_app/views/auth/login/ui/logic/cubit/sign_in_cubit.dart';
 import 'package:mothmerah_app/views/auth/login/ui/sign_in_view.dart';
+import 'package:dio/dio.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
@@ -18,9 +21,13 @@ class SplashView extends StatelessWidget {
           pageBuilder: (_, animation, __) {
             return FadeTransition(
               opacity: animation,
-              child: BlocProvider(
-                create: (context) => SignInCubit(),
-                child: SignInView(),
+              child: RepositoryProvider<LoginRepository>(
+                create: (_) => LoginRepository(Dio()),
+                child: BlocProvider(
+                  create: (context) =>
+                      SignInCubit(context.read<LoginRepository>()),
+                  child: SignInView(),
+                ),
               ),
             );
           },
@@ -31,8 +38,11 @@ class SplashView extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.15),
-          child: Hero(tag: "logo", child: Image.asset(ImageManager.logo)),
+          padding: EdgeInsets.all(60.w),
+          child: Hero(
+            tag: "logo",
+            child: Image.asset(ImageManager.logo, width: 200.w, height: 200.h),
+          ),
         ),
       ),
     );

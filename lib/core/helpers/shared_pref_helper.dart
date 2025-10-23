@@ -96,4 +96,10 @@ class SharedPrefHelper {
     const flutterSecureStorage = FlutterSecureStorage();
     await flutterSecureStorage.delete(key: key);
   }
+
+  /// Gets any data from SharedPreferences with given [key].
+  static getData(String key) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.get(key);
+  }
 }

@@ -14,34 +14,37 @@ class ForgetPasswordView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          children: [
-            Align(
-              child: Text(
-                'نسيت كلمة المرور؟',
-                style: TextStyles(context).font20PrimaryMedium,
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.all(30.w),
+          child: Column(
+            children: [
+              Align(
+                child: Text(
+                  'نسيت كلمة المرور؟',
+                  style: TextStyles(context).font20PrimaryMedium,
+                ),
               ),
-            ),
-            verticalSpace(48.h),
-            Image.asset(ImageManager.forgetLogo, width: 218.w),
-            verticalSpace(56.h),
-            Align(
-              child: Text(
-                'أين ترغب بالحصول على رمز التحقق؟',
-                style: TextStyles(context).font20PrimaryMedium,
+              verticalSpace(48.h),
+              Image.asset(ImageManager.forgetLogo, width: 218.w),
+              verticalSpace(56.h),
+              Align(
+                child: Text(
+                  'أين ترغب بالحصول على رمز التحقق؟',
+                  style: TextStyles(context).font20PrimaryMedium,
+                ),
               ),
-            ),
-            verticalSpace(68.h),
+              verticalSpace(68.h),
 
-            MainButton(
-              text: 'عن طريق رسالة نصية',
-              onTap: () => context.pushNamed('/otp'),
-            ),
-            verticalSpace(26.h),
-            SecondButton(text: 'عن طريق رسالة على الإيميل', onTap: () {}),
-          ],
+              MainButton(
+                text: 'عن طريق رسالة نصية',
+                onTap: () => context.pushNamed('/otp'),
+              ),
+              verticalSpace(26.h),
+              SecondButton(text: 'عن طريق رسالة على الإيميل', onTap: () {}),
+            ],
+          ),
         ),
       ),
     );

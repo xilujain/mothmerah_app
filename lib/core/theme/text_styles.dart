@@ -80,4 +80,47 @@ class TextStyles {
     color: ColorsManager.kPrimaryColor,
     fontFamily: 'Tajawal',
   );
+
+  // Additional styles for OTP page
+  TextStyle get font18PrimaryBold => TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: ColorsManager.kPrimaryColor,
+    fontFamily: 'Tajawal',
+  );
+
+  TextStyle get font14GrayRegular => TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: ColorsManager.kGray,
+    fontFamily: 'Tajawal',
+  );
+
+  TextStyle get font14GrayMedium => TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.medium,
+    color: ColorsManager.kGray,
+    fontFamily: 'Tajawal',
+  );
+
+  TextStyle get font16WhiteBold => TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.white,
+    fontFamily: 'Tajawal',
+  );
+
+  TextStyle get font12GrayRegular => TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: ColorsManager.kGray,
+    fontFamily: 'Tajawal',
+  );
+
+  TextStyle get font16PrimaryBold => TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: ColorsManager.kPrimaryColor,
+    fontFamily: 'Tajawal',
+  );
 }

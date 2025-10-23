@@ -73,7 +73,6 @@ class SignupCubit extends Cubit<SignupState> {
     );
 
     try {
-      print('Sending data: ${signupModel.toJson()}');
       final user = await _authRepository.signup(signupModel);
       emit(state.copyWith(isLoading: false, user: user));
     } catch (e) {

@@ -1,15 +1,14 @@
-import 'package:mothmerah_app/views/auth/login/data/sign_in_model.dart';
 import 'package:mothmerah_app/views/auth/user_model.dart';
 
 class SignInState {
-  final String email;
+  final String phoneNumber;
   final String password;
   final bool isLoading;
   final String? error;
   final UserModel? user;
 
   const SignInState({
-    this.email = '',
+    this.phoneNumber = '',
     this.password = '',
     this.isLoading = false,
     this.error,
@@ -17,14 +16,14 @@ class SignInState {
   });
 
   SignInState copyWith({
-    String? email,
+    String? phoneNumber,
     String? password,
     bool? isLoading,
     String? error,
     UserModel? user,
   }) {
     return SignInState(
-      email: email ?? this.email,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
       password: password ?? this.password,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
@@ -36,9 +35,9 @@ class SignInState {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    
+
     return other is SignInState &&
-        other.email == email &&
+        other.phoneNumber == phoneNumber &&
         other.password == password &&
         other.isLoading == isLoading &&
         other.error == error &&
@@ -47,7 +46,7 @@ class SignInState {
 
   @override
   int get hashCode {
-    return email.hashCode ^
+    return phoneNumber.hashCode ^
         password.hashCode ^
         isLoading.hashCode ^
         error.hashCode ^
@@ -56,6 +55,6 @@ class SignInState {
 
   @override
   String toString() {
-    return 'SignInState(email: $email, password: $password, isLoading: $isLoading, error: $error, user: $user)';
+    return 'SignInState(phoneNumber: $phoneNumber, password: $password, isLoading: $isLoading, error: $error, user: $user)';
   }
 }

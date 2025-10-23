@@ -27,7 +27,6 @@ class AuthRepository {
       );
     } on DioException catch (e) {
       final errorData = e.response?.data;
-      print(errorData);
       final errorMessage =
           errorData?['detail'] ?? errorData?['error'] ?? 'فشل التسجيل';
       throw Exception(errorMessage);

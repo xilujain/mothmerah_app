@@ -43,10 +43,11 @@ class SignUpView extends StatelessWidget {
           },
           builder: (context, state) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(20.0),
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.all(20.w),
               child: Column(
                 children: [
-                  Image.asset(ImageManager.logo, width: 80, height: 80),
+                  Image.asset(ImageManager.logo, width: 80.w, height: 80.h),
                   verticalSpace(20.h),
                   AppTextFormField(
                     controller: _nameController,
