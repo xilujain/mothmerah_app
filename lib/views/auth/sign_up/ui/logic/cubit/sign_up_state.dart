@@ -1,24 +1,28 @@
-import 'package:mothmerah_app/views/auth/login/data/sign_in_model.dart';
+// sign_up_state.dart
+
+import 'package:mothmerah_app/views/auth/user_model.dart';
 
 class SignupState {
   final String name;
   final String email;
   final String password;
   final String confirmPassword;
+  final String phoneNumber;
+  final bool acceptedTerms;
   final bool isLoading;
   final String? error;
   final UserModel? user;
-  final bool acceptedTerms;
 
   const SignupState({
     this.name = '',
     this.email = '',
     this.password = '',
     this.confirmPassword = '',
+    this.phoneNumber = '',
+    this.acceptedTerms = false,
     this.isLoading = false,
     this.error,
     this.user,
-    this.acceptedTerms = false,
   });
 
   SignupState copyWith({
@@ -26,53 +30,34 @@ class SignupState {
     String? email,
     String? password,
     String? confirmPassword,
+    String? phoneNumber,
+    bool? acceptedTerms,
     bool? isLoading,
     String? error,
     UserModel? user,
-    bool? acceptedTerms,
   }) {
     return SignupState(
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      user: user ?? this.user,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
       acceptedTerms: acceptedTerms ?? this.acceptedTerms,
+      isLoading: isLoading ?? this.isLoading,
+      error: error,
+      user: user ?? this.user,
     );
   }
 
-  // Manual equality check
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    
-    return other is SignupState &&
-        other.name == name &&
-        other.email == email &&
-        other.password == password &&
-        other.confirmPassword == confirmPassword &&
-        other.isLoading == isLoading &&
-        other.error == error &&
-        other.user == user &&
-        other.acceptedTerms == acceptedTerms;
-  }
-
-  @override
-  int get hashCode {
-    return name.hashCode ^
-        email.hashCode ^
-        password.hashCode ^
-        confirmPassword.hashCode ^
-        isLoading.hashCode ^
-        error.hashCode ^
-        user.hashCode ^
-        acceptedTerms.hashCode;
-  }
-
-  @override
-  String toString() {
-    return 'SignupState(name: $name, email: $email, password: $password, confirmPassword: $confirmPassword, isLoading: $isLoading, error: $error, user: $user, acceptedTerms: $acceptedTerms)';
-  }
+  List<Object?> get props => [
+    name,
+    email,
+    password,
+    confirmPassword,
+    phoneNumber,
+    acceptedTerms,
+    isLoading,
+    error,
+    user,
+  ];
 }

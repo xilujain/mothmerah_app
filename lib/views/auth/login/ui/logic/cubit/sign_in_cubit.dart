@@ -1,6 +1,6 @@
 // cubit/login_cubit.dart
 import 'package:bloc/bloc.dart';
-import 'package:mothmerah_app/views/auth/login/data/sign_in_model.dart';
+import 'package:mothmerah_app/views/auth/user_model.dart';
 
 import 'sign_in_state.dart';
 
@@ -11,21 +11,7 @@ class SignInCubit extends Cubit<SignInState> {
   final Map<String, dynamic> _dummyUsers = {
     'user@example.com': {
       'password': 'password123',
-      'user': UserModel(
-        id: '1',
-        name: 'John Doe',
-        email: 'user@example.com',
-        token: 'dummy_token_123',
-      ),
-    },
-    'admin@example.com': {
-      'password': 'admin123',
-      'user': UserModel(
-        id: '2',
-        name: 'Admin User',
-        email: 'admin@example.com',
-        token: 'dummy_token_456',
-      ),
+      'user': UserModel('id', 'name', 'email'),
     },
   };
 

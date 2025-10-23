@@ -1,4 +1,5 @@
 import 'package:mothmerah_app/views/auth/login/data/sign_in_model.dart';
+import 'package:mothmerah_app/views/auth/user_model.dart';
 
 class SignInState {
   final String email;

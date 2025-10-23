@@ -35,12 +35,12 @@ class ForgetPasswordView extends StatelessWidget {
             ),
             verticalSpace(68.h),
 
-            MainButton(text: 'عن طريق رسالة نصية', onTap: () {}),
-            verticalSpace(26.h),
-            SecondButton(
-              text: 'عن طريق رسالة على الإيميل',
+            MainButton(
+              text: 'عن طريق رسالة نصية',
               onTap: () => context.pushNamed('/otp'),
             ),
+            verticalSpace(26.h),
+            SecondButton(text: 'عن طريق رسالة على الإيميل', onTap: () {}),
           ],
         ),
       ),

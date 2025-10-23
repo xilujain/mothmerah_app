@@ -9,15 +9,19 @@ import 'package:mothmerah_app/core/routing/app_router.dart';
 import 'package:mothmerah_app/core/theme/text_styles.dart';
 import 'package:mothmerah_app/core/widgets/app_text_form_field.dart';
 import 'package:mothmerah_app/core/widgets/main_button.dart';
+import 'package:mothmerah_app/views/auth/sign_up/data/signup_repository.dart';
 import 'package:mothmerah_app/views/auth/sign_up/ui/logic/cubit/sign_up_cubit.dart';
 import 'package:mothmerah_app/views/auth/sign_up/ui/logic/cubit/sign_up_state.dart';
 import 'package:mothmerah_app/views/auth/sign_up/ui/widgets/terms_and_conditions_dialog.dart';
+
+// SignUpView
 
 class SignUpView extends StatelessWidget {
   SignUpView({super.key});
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
@@ -28,12 +32,11 @@ class SignUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignupCubit(),
+      create: (context) => SignupCubit(context.read<AuthRepository>()),
       child: Scaffold(
         appBar: AppBar(),
         body: BlocConsumer<SignupCubit, SignupState>(
           listener: (context, state) {
-            // Handle successful signup
             if (state.user != null) {
               context.pushReplacementNamed(Routes.splashView);
             }
@@ -45,39 +48,42 @@ class SignUpView extends StatelessWidget {
                 children: [
                   Image.asset(ImageManager.logo, width: 80, height: 80),
                   verticalSpace(20.h),
-                  verticalSpace(40.h),
                   AppTextFormField(
                     controller: _nameController,
                     hintText: 'الاسم الكامل',
-                    onChanged: (value) {
-                      context.read<SignupCubit>().updateName(value);
-                    },
+                    onChanged: (value) =>
+                        context.read<SignupCubit>().updateName(value),
+                  ),
+                  verticalSpace(20.h),
+                  AppTextFormField(
+                    controller: _phoneController,
+                    hintText: 'رقم الجوال',
+                    onChanged: (value) =>
+                        context.read<SignupCubit>().updatePhoneNumber(value),
                   ),
                   verticalSpace(20.h),
                   AppTextFormField(
                     controller: _emailController,
                     hintText: 'البريد الإلكتروني',
-                    onChanged: (value) {
-                      context.read<SignupCubit>().updateEmail(value);
-                    },
+                    onChanged: (value) =>
+                        context.read<SignupCubit>().updateEmail(value),
                   ),
                   verticalSpace(20.h),
                   AppTextFormField(
                     controller: _passwordController,
                     isObscureText: true,
                     hintText: 'كلمة المرور',
-                    onChanged: (value) {
-                      context.read<SignupCubit>().updatePassword(value);
-                    },
+                    onChanged: (value) =>
+                        context.read<SignupCubit>().updatePassword(value),
                   ),
                   verticalSpace(20.h),
                   AppTextFormField(
                     controller: _confirmPasswordController,
                     isObscureText: true,
                     hintText: 'تأكيد كلمة المرور',
-                    onChanged: (value) {
-                      context.read<SignupCubit>().updateConfirmPassword(value);
-                    },
+                    onChanged: (value) => context
+                        .read<SignupCubit>()
+                        .updateConfirmPassword(value),
                   ),
                   verticalSpace(20.h),
                   Container(
@@ -133,8 +139,6 @@ class SignUpView extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  // Error Message
                   if (state.error != null) ...[
                     const SizedBox(height: 10),
                     Container(
@@ -156,28 +160,21 @@ class SignUpView extends StatelessWidget {
                           ),
                           IconButton(
                             icon: const Icon(Icons.close, size: 18),
-                            onPressed: () {
-                              context.read<SignupCubit>().clearError();
-                            },
+                            onPressed: () =>
+                                context.read<SignupCubit>().clearError(),
                           ),
                         ],
                       ),
                     ),
                   ],
-
                   verticalSpace(20.h),
-
-                  // Sign Up Button
                   MainButton(
-                    text: 'تسجيل ',
-                    onTap: () => state.isLoading
-                        ? null
-                        : context.read<SignupCubit>().signup(),
+                    text: state.isLoading ? 'جاري التسجيل...' : 'تسجيل',
+                    onTap: state.isLoading
+                        ? () {}
+                        : () => context.read<SignupCubit>().signup(),
                   ),
-
                   verticalSpace(20.h),
-
-                  // Login Redirect
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -186,9 +183,8 @@ class SignUpView extends StatelessWidget {
                         style: TextStyles(context).font14PrimaryMedium,
                       ),
                       TextButton(
-                        onPressed: () {
-                          context.pushReplacementNamed(Routes.loginView);
-                        },
+                        onPressed: () =>
+                            context.pushReplacementNamed(Routes.loginView),
                         child: Text(
                           'تسجيل الدخول',
                           style: TextStyles(context).font14PrimaryMedium,
@@ -196,32 +192,6 @@ class SignUpView extends StatelessWidget {
                       ),
                     ],
                   ),
-
-                  // Demo Note
-                  // Container(
-                  //   padding: const EdgeInsets.all(12),
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.blue[50],
-                  //     borderRadius: BorderRadius.circular(8),
-                  //   ),
-                  //   child: const Column(
-                  //     children: [
-                  //       Text(
-                  //         'Note:',
-                  //         style: TextStyle(
-                  //           fontWeight: FontWeight.bold,
-                  //           color: Colors.blue,
-                  //         ),
-                  //       ),
-                  //       SizedBox(height: 4),
-                  //       Text(
-                  //         'user@example.com and admin@example.com are already registered. Try with a different email.',
-                  //         style: TextStyle(color: Colors.blue),
-                  //         textAlign: TextAlign.center,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                 ],
               ),
             );
