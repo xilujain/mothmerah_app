@@ -24,6 +24,20 @@ class ProfileUpdated extends ProfileState {
   ProfileUpdated(this.profile);
 }
 
+class ProfileUpdating extends ProfileState {}
+
+class ProfileUpdateSuccess extends ProfileState {
+  final ProfileModel profile;
+
+  ProfileUpdateSuccess(this.profile);
+}
+
+class ProfileUpdateError extends ProfileState {
+  final String error;
+
+  ProfileUpdateError(this.error);
+}
+
 class ProfileImageUploaded extends ProfileState {
   final String imageUrl;
 

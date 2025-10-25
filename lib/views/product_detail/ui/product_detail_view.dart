@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mothmerah_app/core/routing/routes.dart';
 import 'package:mothmerah_app/core/theme/colors.dart';
 import 'package:mothmerah_app/views/product/data/product_model.dart';
 import 'package:mothmerah_app/views/cart/ui/logic/cubit/cart_cubit.dart';
@@ -10,7 +9,6 @@ import 'package:mothmerah_app/views/product_detail/ui/logic/cubit/product_detail
 import 'package:mothmerah_app/views/product_detail/ui/logic/cubit/product_detail_state.dart';
 import 'package:mothmerah_app/views/product_detail/ui/widgets/product_image_section.dart';
 import 'package:mothmerah_app/views/product_detail/ui/widgets/product_info_section.dart';
-import 'package:mothmerah_app/views/product_detail/ui/widgets/other_products_section.dart';
 import 'package:mothmerah_app/views/product_detail/ui/widgets/add_to_cart_button.dart';
 
 class ProductDetailView extends StatefulWidget {

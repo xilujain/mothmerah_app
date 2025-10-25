@@ -21,6 +21,8 @@ import 'package:mothmerah_app/views/product/data/product_model.dart';
 import 'package:mothmerah_app/views/cart/ui/cart_view.dart';
 import 'package:mothmerah_app/views/product_detail/ui/product_detail_view.dart';
 import 'package:mothmerah_app/views/order_review/ui/order_review_view.dart';
+import 'package:mothmerah_app/views/license/ui/license_view.dart';
+import 'package:mothmerah_app/views/notification/ui/notification_view.dart';
 
 class Routes {
   static const String splashView = '/';
@@ -34,6 +36,8 @@ class Routes {
   static const String productDetailView = '/product-detail';
   static const String cartView = '/cart';
   static const String orderReviewView = '/order-review';
+  static const String licenseView = '/license';
+  static const String notificationView = '/notification';
 }
 
 class AppRouter {
@@ -99,6 +103,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const CartView());
       case Routes.orderReviewView:
         return MaterialPageRoute(builder: (_) => OrderReviewView());
+      case Routes.licenseView:
+        return MaterialPageRoute(builder: (_) => const LicenseView());
+      case Routes.notificationView:
+        return MaterialPageRoute(builder: (_) => const NotificationView());
       default:
     }
 

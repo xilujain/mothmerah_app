@@ -14,6 +14,11 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   ProfileModel? get currentProfile => _currentProfile;
 
+  /// Set current profile (for initialization)
+  void setCurrentProfile(ProfileModel profile) {
+    _currentProfile = profile;
+  }
+
   /// Load user profile
   Future<void> loadProfile(BuildContext context) async {
     emit(ProfileLoading());
@@ -37,14 +42,44 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   /// Update user profile
   Future<void> updateProfile(ProfileModel profile) async {
-    emit(ProfileLoading());
+    emit(ProfileUpdating());
 
     try {
       final updatedProfile = await _repository.updateProfile(profile);
       _currentProfile = updatedProfile;
-      emit(ProfileUpdated(updatedProfile));
+      emit(ProfileUpdateSuccess(updatedProfile));
     } catch (e) {
-      emit(ProfileError(e.toString()));
+      emit(ProfileUpdateError(e.toString()));
+    }
+  }
+
+  /// Update specific profile fields
+  Future<void> updateProfileFields({
+    String? name,
+    String? email,
+    String? phone,
+    String? profileImage,
+  }) async {
+    if (_currentProfile == null) {
+      emit(ProfileUpdateError('لا توجد بيانات مستخدم للتحسين'));
+      return;
+    }
+
+    emit(ProfileUpdating());
+
+    try {
+      final updatedProfile = _currentProfile!.copyWith(
+        name: name,
+        email: email,
+        phone: phone,
+        profileImage: profileImage,
+      );
+
+      final result = await _repository.updateProfile(updatedProfile);
+      _currentProfile = result;
+      emit(ProfileUpdateSuccess(result));
+    } catch (e) {
+      emit(ProfileUpdateError(e.toString()));
     }
   }
 

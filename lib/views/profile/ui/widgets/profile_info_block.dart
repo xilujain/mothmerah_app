@@ -60,7 +60,14 @@ class ProfileInfoRow extends StatelessWidget {
           children: [
             Text(label, style: textStyles.font14PrimaryBold),
             const Spacer(),
-            Text(value, style: textStyles.font14GrayRegular),
+            Flexible(
+              child: Text(
+                value,
+                style: textStyles.font14GrayRegular,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
             SizedBox(width: 8.w),
             Icon(
               Icons.arrow_forward_ios,

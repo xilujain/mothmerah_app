@@ -84,32 +84,65 @@ class ProfileRepository {
   /// Update user profile
   Future<ProfileModel> updateProfile(ProfileModel profile) async {
     try {
+      // Validate token before making API call
+      if (!await AuthService.validateTokenBeforeApiCall()) {
+        throw Exception('انتهت صلاحية الجلسة، يرجى تسجيل الدخول مرة أخرى');
+      }
+
       final token = await TokenManager.getToken();
       final response = await _dio.patch(
-        '/api/v1/me/profile',
-        data: profile.toJson(),
+        'http://127.0.0.1:8000/api/v1/users/me',
+        data: profile.toUpdateRequestJson(),
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
           },
         ),
       );
 
-      final updatedProfile = ProfileModel.fromJson(response.data['data']);
+      // Note: Token validation is already done before the API call
+      // No need to check response for token expiration in update profile
+
+      // Process response - data might be direct or inside 'data'
+      Map<String, dynamic> userData;
+      if (response.data is Map<String, dynamic>) {
+        if (response.data.containsKey('data')) {
+          userData = response.data['data'];
+        } else {
+          userData = response.data;
+        }
+      } else {
+        throw Exception('تنسيق البيانات غير صحيح');
+      }
+
+      final updatedProfile = ProfileModel.fromJson(userData);
 
       // Update stored user data
       await TokenManager.updateUserData(updatedProfile.toJson());
 
       return updatedProfile;
     } on DioException catch (e) {
+      // Handle authentication errors
       if (e.response?.statusCode == 401) {
         await TokenManager.clearUserData();
         throw Exception('انتهت صلاحية الجلسة، يرجى تسجيل الدخول مرة أخرى');
-      } else if (e.response != null) {
-        throw Exception(
-          'خطأ في الخادم: ${e.response?.data['message'] ?? 'حدث خطأ غير متوقع'}',
-        );
+      }
+
+      if (e.response != null) {
+        final errorData = e.response?.data;
+        String errorMessage = 'حدث خطأ غير متوقع';
+
+        if (errorData is Map<String, dynamic>) {
+          if (errorData.containsKey('detail')) {
+            errorMessage = errorData['detail'].toString();
+          } else if (errorData.containsKey('message')) {
+            errorMessage = errorData['message'];
+          }
+        }
+
+        throw Exception('خطأ في الخادم: $errorMessage');
       } else {
         throw Exception('خطأ في الاتصال: ${e.message}');
       }

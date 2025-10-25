@@ -91,6 +91,27 @@ class ProfileModel {
     };
   }
 
+  /// Convert to API update request format
+  Map<String, dynamic> toUpdateRequestJson() {
+    // Split name into first and last name
+    final nameParts = name.split(' ');
+    final firstName = nameParts.isNotEmpty ? nameParts.first : '';
+    final lastName = nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '';
+
+    final Map<String, dynamic> data = {};
+
+    if (phone != null) data['phone_number'] = phone;
+    if (email.isNotEmpty) data['email'] = email;
+    if (firstName.isNotEmpty) data['first_name'] = firstName;
+    if (lastName.isNotEmpty) data['last_name'] = lastName;
+    if (profileImage != null) data['profile_picture_url'] = profileImage;
+    data['user_verification_status_id'] = isVerified ? 1 : 0;
+    data['preferred_language_code'] = 'ar'; // Default to Arabic
+    data['is_deleted'] = false;
+
+    return data;
+  }
+
   ProfileModel copyWith({
     String? id,
     String? name,

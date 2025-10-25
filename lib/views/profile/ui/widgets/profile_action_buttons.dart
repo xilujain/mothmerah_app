@@ -34,6 +34,13 @@ class ProfileActionButtons extends StatelessWidget {
                   },
                 ),
                 ProfileActionRow(
+                  label: '🔔 الإشعارات',
+                  color: Colors.blue,
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.notificationView);
+                  },
+                ),
+                ProfileActionRow(
                   label: '🗑️ مسح البيانات المحفوظة',
                   color: Colors.orange,
                   onTap: () {
