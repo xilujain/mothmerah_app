@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mothmerah_app/core/routing/app_router.dart';
+import 'package:mothmerah_app/core/routing/routes.dart';
 import 'package:mothmerah_app/core/theme/colors.dart';
 import 'package:mothmerah_app/core/theme/text_styles.dart';
 

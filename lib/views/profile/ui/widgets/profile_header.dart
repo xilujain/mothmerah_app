@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mothmerah_app/core/theme/colors.dart';
+import 'package:mothmerah_app/core/theme/text_styles.dart';
+
+class ProfileHeader extends StatelessWidget {
+  const ProfileHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final textStyles = TextStyles(context);
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: ColorsManager.kPrimaryColor,
+              size: 24.sp,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              'تعديل الملف الشخصي',
+              textAlign: TextAlign.center,
+              style: textStyles.font20PrimaryBold,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              // Handle share/export profile
+            },
+            icon: Icon(
+              Icons.share_outlined,
+              color: ColorsManager.kPrimaryColor,
+              size: 24.sp,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

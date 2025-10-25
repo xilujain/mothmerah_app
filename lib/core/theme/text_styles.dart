@@ -123,4 +123,78 @@ class TextStyles {
     color: ColorsManager.kPrimaryColor,
     fontFamily: 'Tajawal',
   );
+
+  // Additional text styles for new views
+  TextStyle get font10WhiteBold => TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.white,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font12BlackBold => TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.black,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font10GrayRegular => TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: Colors.grey,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font20BlackBold => TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.black,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font18BlackBold => TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.black,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font18GrayBold => TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.grey,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font14BlackBold => TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.black,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font12PrimaryBold => TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: ColorsManager.kPrimaryColor,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font10BlackBold => TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.black,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font8GrayRegular => TextStyle(
+    fontSize: 8.sp,
+    fontWeight: FontWeightHelper.regular,
+    color: Colors.grey,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font10PrimaryBold => TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: ColorsManager.kPrimaryColor,
+    fontFamily: 'Tajawal',
+  );
+  TextStyle get font12WhiteBold => TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.white,
+    fontFamily: 'Tajawal',
+  );
 }

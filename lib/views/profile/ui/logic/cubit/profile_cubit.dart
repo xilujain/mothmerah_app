@@ -17,28 +17,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileLoading());
 
     try {
-      // First try to get cached profile from TokenManager
-      final cachedData = await TokenManager.getUserData();
-      if (cachedData != null) {
-        _currentProfile = ProfileModel.fromJson(cachedData);
-        emit(ProfileLoaded(_currentProfile!));
-      } else {
-        emit(ProfileError('لا توجد بيانات مستخدم محفوظة'));
-        return;
-      }
-
-      // Then try to fetch fresh data from API (optional)
-      try {
         final profile = await _repository.getProfile();
         _currentProfile = profile;
 
-        // Update cached data
         await TokenManager.updateUserData(profile.toJson());
 
         emit(ProfileLoaded(profile));
-      } catch (apiError) {
-        print('API Error: $apiError');
-      }
     } catch (e) {
       emit(ProfileError(e.toString()));
     }

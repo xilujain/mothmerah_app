@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mothmerah_app/core/assets/img_manager.dart';
 import 'package:mothmerah_app/core/extensions/navigation.dart';
 import 'package:mothmerah_app/core/helpers/spacing.dart';
-import 'package:mothmerah_app/core/routing/app_router.dart';
+import 'package:mothmerah_app/core/routing/routes.dart';
 import 'package:mothmerah_app/core/theme/colors.dart';
 import 'package:mothmerah_app/core/theme/text_styles.dart';
 import 'package:mothmerah_app/core/widgets/app_text_form_field.dart';
@@ -26,7 +26,7 @@ class SignInView extends StatelessWidget {
       body: BlocConsumer<SignInCubit, SignInState>(
         listener: (context, state) {
           if (state.user != null) {
-            context.pushReplacementNamed(Routes.profileView);
+            context.pushReplacementNamed(Routes.homeView);
           }
         },
         builder: (context, state) {

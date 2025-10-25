@@ -10,6 +10,8 @@ class ProfileModel {
   final String? licenses;
   final String? verificationStatus;
   final String? goldenGuarantee;
+  final String? createdAt;
+  final String? updatedAt;
 
   ProfileModel({
     required this.id,
@@ -23,6 +25,8 @@ class ProfileModel {
     this.licenses,
     this.verificationStatus,
     this.goldenGuarantee,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
@@ -63,6 +67,8 @@ class ProfileModel {
       licenses: null, // Not available in this API response
       verificationStatus: verificationStatus,
       goldenGuarantee: null, // Not available in this API response
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
     );
     return profile;
   }
@@ -80,6 +86,8 @@ class ProfileModel {
       'licenses': licenses,
       'verification_status': verificationStatus,
       'golden_guarantee': goldenGuarantee,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
     };
   }
 
@@ -95,6 +103,8 @@ class ProfileModel {
     String? licenses,
     String? verificationStatus,
     String? goldenGuarantee,
+    String? createdAt,
+    String? updatedAt,
   }) {
     return ProfileModel(
       id: id ?? this.id,
@@ -108,6 +118,8 @@ class ProfileModel {
       licenses: licenses ?? this.licenses,
       verificationStatus: verificationStatus ?? this.verificationStatus,
       goldenGuarantee: goldenGuarantee ?? this.goldenGuarantee,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 }
