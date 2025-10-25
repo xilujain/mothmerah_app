@@ -11,14 +11,10 @@ class ProductCubit extends Cubit<ProductState> {
     emit(ProductLoading());
 
     try {
-      print('🛍️ تحميل المنتجات...');
       final products = await _repository.getProducts();
-
-      print('✅ تم تحميل ${products.length} منتج بنجاح');
 
       emit(ProductLoaded(products: products));
     } catch (e) {
-      print('❌ خطأ في تحميل المنتجات: $e');
       emit(ProductError(error: e.toString()));
     }
   }
@@ -30,30 +26,22 @@ class ProductCubit extends Cubit<ProductState> {
     }
 
     try {
-      print('🔄 تحديث المنتجات...');
       final products = await _repository.getProducts();
-
-      print('✅ تم تحديث ${products.length} منتج بنجاح');
 
       emit(ProductLoaded(products: products));
     } catch (e) {
-      print('❌ خطأ في تحديث المنتجات: $e');
       emit(ProductError(error: e.toString()));
     }
   }
 
   Future<void> loadProductById(String productId) async {
     try {
-      print('🛍️ تحميل منتج محدد: $productId');
-      final product = await _repository.getProductById(productId);
-
-      print('✅ تم تحميل المنتج بنجاح: ${product.name}');
+      await _repository.getProductById(productId);
 
       // You can emit a specific state for single product if needed
       // For now, we'll just reload all products
       await loadProducts();
     } catch (e) {
-      print('❌ خطأ في تحميل المنتج: $e');
       emit(ProductError(error: e.toString()));
     }
   }

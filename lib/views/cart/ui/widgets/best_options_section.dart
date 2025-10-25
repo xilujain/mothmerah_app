@@ -22,7 +22,6 @@ class BestOptionsSection extends StatelessWidget {
       ProductModel(
         id: '1',
         name: 'اسم المنتج',
-        description: 'وصف المنتج',
         price: 10.0,
         imageUrl: 'assets/images/cucumber.jpg',
         category: 'الخضار',
@@ -32,7 +31,6 @@ class BestOptionsSection extends StatelessWidget {
       ProductModel(
         id: '2',
         name: 'اسم المنتج',
-        description: 'وصف المنتج',
         price: 10.0,
         imageUrl: 'assets/images/cucumber.jpg',
         category: 'الخضار',
@@ -42,7 +40,6 @@ class BestOptionsSection extends StatelessWidget {
       ProductModel(
         id: '3',
         name: 'اسم المنتج',
-        description: 'وصف المنتج',
         price: 10.0,
         imageUrl: 'assets/images/cucumber.jpg',
         category: 'الخضار',
@@ -108,7 +105,7 @@ class BestOptionsSection extends StatelessWidget {
                           borderRadius: BorderRadius.circular(4.r),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 4,
                               offset: const Offset(0, 2),
                             ),

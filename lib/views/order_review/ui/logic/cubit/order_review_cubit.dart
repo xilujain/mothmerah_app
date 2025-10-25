@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:mothmerah_app/views/product/data/product_model.dart';
 import 'order_review_state.dart';
 
 class OrderReviewCubit extends Cubit<OrderReviewState> {
@@ -34,5 +35,13 @@ class OrderReviewCubit extends Cubit<OrderReviewState> {
   void calculateTotal() {
     final total = state.orderTotal + state.deliveryFee;
     emit(state.copyWith(total: total));
+  }
+
+  /// Update cart data from CartCubit
+  void updateCartData(List<ProductModel> cartItems, double cartTotal) {
+    emit(state.copyWith(
+      orderTotal: cartTotal,
+      total: cartTotal + state.deliveryFee,
+    ));
   }
 }

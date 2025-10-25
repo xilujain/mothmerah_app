@@ -27,7 +27,7 @@ class _ProfileViewState extends State<ProfileView> {
     super.initState();
     // Load profile when page opens
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ProfileCubit>().loadProfile();
+      context.read<ProfileCubit>().loadProfile(context);
     });
   }
 
@@ -99,7 +99,7 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton(
-                      onPressed: () => cubit.loadProfile(),
+                      onPressed: () => cubit.loadProfile(context),
                       child: const Text('إعادة المحاولة'),
                     ),
                   ],

@@ -64,14 +64,8 @@ class ProductInfoSection extends StatelessWidget {
             '${product.calories} سعرة حرارية',
             style: textStyles.font14GrayRegular,
           ),
-
-          SizedBox(height: 8.h),
-
-          // Description
-          Text(product.description, style: textStyles.font14GrayRegular),
         ],
       ),
     );
   }
 }
-

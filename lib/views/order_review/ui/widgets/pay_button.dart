@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mothmerah_app/core/theme/colors.dart';
 import 'package:mothmerah_app/core/theme/text_styles.dart';
 
 class PayButton extends StatelessWidget {
@@ -19,7 +18,7 @@ class PayButton extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),

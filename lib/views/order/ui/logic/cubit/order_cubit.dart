@@ -57,14 +57,8 @@ class OrderCubit extends Cubit<OrderState> {
         items: orderItems,
       );
 
-      print('🛒 إرسال طلب جديد...');
-      print('📦 عدد العناصر: ${orderItems.length}');
-      print('💰 المبلغ الإجمالي: $finalTotalAmount $currencyCode');
-
       // Submit order
       final response = await _repository.createOrder(orderRequest);
-
-      print('✅ تم إنشاء الطلب بنجاح: ${response.orderId}');
 
       emit(OrderSuccess(orderResponse: response));
 
@@ -77,7 +71,6 @@ class OrderCubit extends Cubit<OrderState> {
         ),
       );
     } catch (e) {
-      print('❌ خطأ في إنشاء الطلب: $e');
       emit(OrderError(error: e.toString()));
     }
   }

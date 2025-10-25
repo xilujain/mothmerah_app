@@ -18,7 +18,6 @@ class OtherProductsSection extends StatelessWidget {
       ProductModel(
         id: '1',
         name: 'اسم المنتج',
-        description: 'وصف المنتج',
         price: 10.0,
         imageUrl: 'assets/images/chili.jpg',
         category: 'الخضار',
@@ -28,7 +27,6 @@ class OtherProductsSection extends StatelessWidget {
       ProductModel(
         id: '2',
         name: 'اسم المنتج',
-        description: 'وصف المنتج',
         price: 10.0,
         imageUrl: 'assets/images/onion.jpg',
         category: 'الخضار',
@@ -38,7 +36,6 @@ class OtherProductsSection extends StatelessWidget {
       ProductModel(
         id: '3',
         name: 'اسم المنتج',
-        description: 'وصف المنتج',
         price: 10.0,
         imageUrl: 'assets/images/broccoli.jpg',
         category: 'الخضار',

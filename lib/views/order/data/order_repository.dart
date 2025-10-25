@@ -17,18 +17,6 @@ class OrderRepository {
         throw Exception('لم يتم العثور على رمز المصادقة');
       }
 
-      print('🛒 إنشاء طلب جديد...');
-      print('📦 عدد العناصر: ${request.items.length}');
-      print(
-        '💰 المبلغ الإجمالي: ${request.finalTotalAmount} ${request.currencyCode}',
-      );
-
-      print('🔵 البيانات المرسلة للـ API:');
-      print('URL: http://127.0.0.1:8000/api/v1/orders');
-      print('Headers: ${request.toJson()}');
-      print('Request Data: ${request.toJson()}');
-      print('=====================================');
-
       final response = await _dio.post(
         'http://127.0.0.1:8000/api/v1/orders',
         data: request.toJson(),
@@ -41,20 +29,12 @@ class OrderRepository {
         ),
       );
 
-      print('✅ تم إنشاء الطلب بنجاح');
-      print('📊 حالة الاستجابة: ${response.statusCode}');
-      print('📄 بيانات الاستجابة: ${response.data}');
-
       if (response.statusCode == 200 || response.statusCode == 201) {
         return OrderResponseModel.fromJson(response.data);
       } else {
         throw Exception('فشل في إنشاء الطلب: ${response.statusCode}');
       }
     } on DioException catch (e) {
-      print('❌ خطأ في إنشاء الطلب: ${e.message}');
-      print('📊 كود الخطأ: ${e.response?.statusCode}');
-      print('📄 تفاصيل الخطأ: ${e.response?.data}');
-
       String errorMessage = 'فشل في إنشاء الطلب';
 
       if (e.response?.data != null) {
@@ -70,7 +50,6 @@ class OrderRepository {
 
       throw Exception(errorMessage);
     } catch (e) {
-      print('❌ خطأ عام في إنشاء الطلب: $e');
       throw Exception('حدث خطأ غير متوقع: $e');
     }
   }

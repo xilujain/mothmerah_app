@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mothmerah_app/core/helpers/token_manager.dart';
+import 'package:mothmerah_app/core/services/auth_service.dart';
 import 'package:mothmerah_app/views/profile/data/profile_model.dart';
 import 'package:mothmerah_app/views/profile/data/profile_repository.dart';
 import 'package:mothmerah_app/views/profile/ui/logic/cubit/profile_state.dart';
@@ -13,17 +15,22 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileModel? get currentProfile => _currentProfile;
 
   /// Load user profile
-  Future<void> loadProfile() async {
+  Future<void> loadProfile(BuildContext context) async {
     emit(ProfileLoading());
 
     try {
-        final profile = await _repository.getProfile();
-        _currentProfile = profile;
+      final profile = await _repository.getProfile(context);
+      _currentProfile = profile;
 
-        await TokenManager.updateUserData(profile.toJson());
+      await TokenManager.updateUserData(profile.toJson());
 
-        emit(ProfileLoaded(profile));
+      emit(ProfileLoaded(profile));
     } catch (e) {
+      // Check if it's a token expiration error
+      if (e.toString().contains('انتهت صلاحية الجلسة')) {
+        // Handle automatic logout
+        await AuthService.handleTokenExpiration(context);
+      }
       emit(ProfileError(e.toString()));
     }
   }
@@ -77,7 +84,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       _currentProfile = null;
       emit(ProfileLogout());
     } catch (e) {
-      print('❌ خطأ في تسجيل الخروج: $e');
+      // Emit error state for logout failure
+      emit(ProfileError('خطأ في تسجيل الخروج: ${e.toString()}'));
     }
   }
 

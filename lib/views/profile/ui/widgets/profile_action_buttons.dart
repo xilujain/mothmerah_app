@@ -142,11 +142,8 @@ class ProfileActionButtons extends StatelessWidget {
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              print('🗑️ بدء مسح البيانات المحفوظة...');
               await TokenManager.forceClearAllData();
-              print('✅ تم مسح جميع البيانات بنجاح');
-              print('🔄 إعادة تحميل الصفحة...');
-              cubit.loadProfile();
+              cubit.loadProfile(context);
             },
             child: Text(
               'مسح',

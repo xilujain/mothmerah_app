@@ -165,12 +165,11 @@ class ApiProductModel {
     return ProductModel(
       id: productId,
       name: name,
-      description: description,
       price: price,
       imageUrl: mainImageUrl ?? 'assets/images/default_product.png',
       category: categoryName,
       weight:
-          '${defaultPackagingOption?.quantityInPackaging.toStringAsFixed(1)} ${unitAbbreviation}',
+          '${defaultPackagingOption?.quantityInPackaging.toStringAsFixed(1)} $unitAbbreviation',
       calories: 0, // Not available in API
       quantity: 1,
       isLimited: false, // Not available in API

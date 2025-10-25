@@ -198,7 +198,6 @@ class CartCubit extends Cubit<CartState> {
       orElse: () => ProductModel(
         id: '',
         name: '',
-        description: '',
         price: 0.0,
         imageUrl: '',
         category: '',

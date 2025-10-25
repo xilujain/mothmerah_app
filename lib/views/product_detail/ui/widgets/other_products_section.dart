@@ -23,7 +23,6 @@ class OtherProductsSection extends StatelessWidget {
       ProductModel(
         id: 'other_1',
         name: 'اسم المنتج',
-        description: 'صندوق ٢ كغ',
         price: 10.0,
         imageUrl: 'assets/images/chili.jpg',
         category: 'الخضار',
@@ -35,7 +34,6 @@ class OtherProductsSection extends StatelessWidget {
       ProductModel(
         id: 'other_2',
         name: 'اسم المنتج',
-        description: 'كرتون ٥ كغ',
         price: 10.0,
         imageUrl: 'assets/images/onion.jpg',
         category: 'الخضار',
@@ -47,7 +45,6 @@ class OtherProductsSection extends StatelessWidget {
       ProductModel(
         id: 'other_3',
         name: 'اسم المنتج',
-        description: 'صندوق ٥ كغ',
         price: 10.0,
         imageUrl: 'assets/images/broccoli.jpg',
         category: 'الخضار',
@@ -90,7 +87,7 @@ class OtherProductsSection extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12.r),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
+                              color: Colors.black.withValues(alpha: 0.1),
                               blurRadius: 5,
                               offset: const Offset(0, 2),
                             ),
@@ -156,17 +153,7 @@ class OtherProductsSection extends StatelessWidget {
                       style: textStyles.font12BlackBold,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                    ),
-
-                    SizedBox(height: 2.h),
-
-                    // Description
-                    Text(
-                      product.description,
-                      style: textStyles.font10GrayRegular,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    )
                   ],
                 ),
               );

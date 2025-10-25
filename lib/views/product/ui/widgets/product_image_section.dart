@@ -53,7 +53,7 @@ class ProductImageSection extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: index == 2
                         ? ColorsManager.kPrimaryColor
-                        : Colors.white.withOpacity(0.5),
+                        : Colors.white.withValues(alpha: 0.5),
                     shape: BoxShape.circle,
                   ),
                 ),

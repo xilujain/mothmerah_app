@@ -12,7 +12,7 @@ class PromotionalBanner extends StatefulWidget {
 }
 
 class _PromotionalBannerState extends State<PromotionalBanner> {
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _PromotionalBannerState extends State<PromotionalBanner> {
                   decoration: BoxDecoration(
                     color: index == _currentIndex
                         ? ColorsManager.kPrimaryColor
-                        : Colors.white.withOpacity(0.5),
+                        : Colors.white.withValues(alpha: 0.5),
                     shape: BoxShape.circle,
                   ),
                 ),

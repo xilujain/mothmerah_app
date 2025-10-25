@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:mothmerah_app/core/helpers/token_manager.dart';
+import 'package:mothmerah_app/core/services/auth_service.dart';
 import 'package:mothmerah_app/views/profile/data/profile_model.dart';
 
 class ProfileRepository {
@@ -8,8 +10,13 @@ class ProfileRepository {
   ProfileRepository(this._dio);
 
   /// Get user profile
-  Future<ProfileModel> getProfile() async {
+  Future<ProfileModel> getProfile(BuildContext context) async {
     try {
+      // Validate token before making API call
+      if (!await AuthService.validateTokenBeforeApiCall()) {
+        throw Exception('انتهت صلاحية الجلسة، يرجى تسجيل الدخول مرة أخرى');
+      }
+
       final token = await TokenManager.getToken();
       final response = await _dio.get(
         'http://127.0.0.1:8000/api/v1/users/me',
@@ -21,6 +28,18 @@ class ProfileRepository {
           },
         ),
       );
+
+      // Check if response indicates token expiration
+      if (response.data is Map<String, dynamic>) {
+        final wasExpired = await AuthService.checkApiResponse(
+          context,
+          response.data,
+        );
+        if (wasExpired) {
+          throw Exception('انتهت صلاحية الجلسة، يرجى تسجيل الدخول مرة أخرى');
+        }
+      }
+
       // معالجة الاستجابة - قد تكون البيانات مباشرة أو داخل 'data'
       Map<String, dynamic> userData;
       if (response.data is Map<String, dynamic>) {
@@ -34,15 +53,14 @@ class ProfileRepository {
       }
 
       final profile = ProfileModel.fromJson(userData);
-
       return profile;
     } on DioException catch (e) {
-
-      if (e.response?.statusCode == 401) {
-        // Token expired or invalid
-        await TokenManager.clearUserData();
+      // Handle authentication errors
+      if (await AuthService.handleDioException(context, e)) {
         throw Exception('انتهت صلاحية الجلسة، يرجى تسجيل الدخول مرة أخرى');
-      } else if (e.response != null) {
+      }
+
+      if (e.response != null) {
         final errorData = e.response?.data;
         String errorMessage = 'حدث خطأ غير متوقع';
 

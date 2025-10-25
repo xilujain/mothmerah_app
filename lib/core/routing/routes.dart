@@ -21,7 +21,6 @@ import 'package:mothmerah_app/views/product/data/product_model.dart';
 import 'package:mothmerah_app/views/cart/ui/cart_view.dart';
 import 'package:mothmerah_app/views/product_detail/ui/product_detail_view.dart';
 import 'package:mothmerah_app/views/order_review/ui/order_review_view.dart';
-import 'package:mothmerah_app/views/cart/ui/logic/cubit/cart_cubit.dart';
 
 class Routes {
   static const String splashView = '/';

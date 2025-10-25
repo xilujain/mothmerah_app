@@ -1,5 +1,6 @@
 import 'package:mothmerah_app/core/helpers/constants.dart';
 import 'package:mothmerah_app/core/helpers/shared_pref_helper.dart';
+import 'package:mothmerah_app/core/helpers/token_validator.dart';
 
 class TokenManager {
   static const String _tokenKey = SharedPrefKeys.userToken;
@@ -39,7 +40,14 @@ class TokenManager {
     final token = await getToken();
     if (token.isEmpty) return false;
 
-    // Check if token has expiry date
+    // Use TokenValidator to check if token is valid
+    if (!TokenValidator.isTokenValid(token)) {
+      // Token is invalid or expired, clear data
+      await clearUserData();
+      return false;
+    }
+
+    // Additional check for stored expiry date (backup)
     final expiryTimestamp = await SharedPrefHelper.getInt(_tokenExpiryKey);
     if (expiryTimestamp > 0) {
       final expiryDate = DateTime.fromMillisecondsSinceEpoch(expiryTimestamp);
@@ -81,7 +89,55 @@ class TokenManager {
       await SharedPrefHelper.removeData(_userDataKey);
       await SharedPrefHelper.removeData(_tokenExpiryKey);
     } catch (e) {
-      print('❌ خطأ في مسح البيانات: $e');
+      // Log error for debugging but don't show to user
+      // Data clearing should continue even if some operations fail
     }
+  }
+
+  /// Check if token will expire soon and needs refresh
+  static Future<bool> needsTokenRefresh({
+    Duration threshold = const Duration(minutes: 5),
+  }) async {
+    final token = await getToken();
+    if (token.isEmpty) return false;
+
+    return TokenValidator.willExpireWithin(token, threshold);
+  }
+
+  /// Get token expiration info
+  static Future<Map<String, dynamic>?> getTokenInfo() async {
+    final token = await getToken();
+    if (token.isEmpty) return null;
+
+    try {
+      final payload = TokenValidator.getTokenPayload(token);
+      final expirationDate = TokenValidator.getTokenExpirationDate(token);
+      final timeUntilExpiration = TokenValidator.getTimeUntilExpiration(token);
+
+      return {
+        'payload': payload,
+        'expirationDate': expirationDate,
+        'timeUntilExpiration': timeUntilExpiration,
+        'isExpired': TokenValidator.isTokenExpired(token),
+        'isValid': TokenValidator.isTokenValid(token),
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Handle automatic logout when token expires
+  static Future<void> handleTokenExpiration() async {
+    await clearUserData();
+  }
+
+  /// Check if API response indicates token expiration and handle it
+  static Future<bool> handleApiResponse(Map<String, dynamic> response) async {
+    if (TokenValidator.isTokenExpiredResponse(response) ||
+        TokenValidator.isAuthenticationError(response)) {
+      await handleTokenExpiration();
+      return true; // Token was expired/invalid
+    }
+    return false; // Token is still valid
   }
 }

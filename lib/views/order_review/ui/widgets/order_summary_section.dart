@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mothmerah_app/core/theme/colors.dart';
 import 'package:mothmerah_app/core/theme/text_styles.dart';
 
 class OrderSummarySection extends StatelessWidget {
@@ -26,7 +25,7 @@ class OrderSummarySection extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -64,8 +63,16 @@ class OrderSummarySection extends StatelessWidget {
         Text(
           label,
           style: isTotal
-              ? textStyles.font18BlackBold
-              : textStyles.font14BlackBold,
+              ? const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                )
+              : const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
         ),
         Text(
           '${amount.toStringAsFixed(0)} ر.س',
