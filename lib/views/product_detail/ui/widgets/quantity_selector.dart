@@ -54,7 +54,10 @@ class QuantitySelector extends StatelessWidget {
             width: 40.w,
             height: 32.h,
             alignment: Alignment.center,
-            child: Text(quantity.toString(), style: textStyles.font16PrimaryRegular),
+            child: Text(
+              quantity.toString(),
+              style: textStyles.font16PrimaryRegular,
+            ),
           ),
 
           // Remove button
