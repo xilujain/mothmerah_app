@@ -11,41 +11,56 @@ import 'package:mothmerah_app/views/auth/login/ui/logic/cubit/sign_in_cubit.dart
 import 'package:mothmerah_app/views/auth/login/ui/sign_in_view.dart';
 import 'package:dio/dio.dart';
 
-class SplashView extends StatelessWidget {
+class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2), () async {
-      // Check if user is already logged in
-      final isLoggedIn = await TokenManager.isLoggedIn();
-      
-      if (isLoggedIn) {
-        // User is logged in, navigate to home
-        Navigator.of(context).pushReplacementNamed(Routes.homeView);
-      } else {
-        // User is not logged in, navigate to login
-        Navigator.of(context).pushReplacement(
-          PageRouteBuilder(
-            transitionDuration: const Duration(seconds: 1),
-            pageBuilder: (_, animation, __) {
-              return FadeTransition(
-                opacity: animation,
-                child: RepositoryProvider<LoginRepository>(
-                  create: (_) => LoginRepository(Dio()),
-                  child: BlocProvider(
-                    create: (context) =>
-                        SignInCubit(context.read<LoginRepository>()),
-                    child: SignInView(),
-                  ),
-                ),
-              );
-            },
-          ),
-        );
-      }
-    });
+  State<SplashView> createState() => _SplashViewState();
+}
 
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    super.initState();
+    _navigateAfterDelay();
+  }
+
+  Future<void> _navigateAfterDelay() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    if (!mounted) return; // Check if widget is still mounted
+
+    // Check if user is already logged in
+    final isLoggedIn = await TokenManager.isLoggedIn();
+
+    if (isLoggedIn) {
+      // User is logged in, navigate to home
+      Navigator.of(context).pushReplacementNamed(Routes.homeView);
+    } else {
+      // User is not logged in, navigate to login
+      Navigator.of(context).pushReplacement(
+        PageRouteBuilder(
+          transitionDuration: const Duration(seconds: 1),
+          pageBuilder: (_, animation, __) {
+            return FadeTransition(
+              opacity: animation,
+              child: RepositoryProvider<LoginRepository>(
+                create: (_) => LoginRepository(Dio()),
+                child: BlocProvider(
+                  create: (context) =>
+                      SignInCubit(context.read<LoginRepository>()),
+                  child: SignInView(),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Padding(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mothmerah_app/core/routing/routes.dart';
-import 'package:mothmerah_app/core/theme/colors.dart';
 import 'package:mothmerah_app/core/theme/text_styles.dart';
 import 'package:mothmerah_app/core/widgets/scrollable_wrapper.dart';
 import 'package:mothmerah_app/views/product/data/product_model.dart';
@@ -171,13 +170,8 @@ class _CartViewState extends State<CartView> {
                 CheckoutSection(
                   totalAmount: totalAmount,
                   onCheckout: () {
-                    // Handle checkout
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('تم الانتقال إلى الدفع'),
-                        backgroundColor: ColorsManager.kPrimaryColor,
-                      ),
-                    );
+                    // Navigate to order review
+                    Navigator.pushNamed(context, Routes.orderReviewView);
                   },
                 ),
               // Bottom navigation

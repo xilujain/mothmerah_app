@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mothmerah_app/core/routing/routes.dart';
 import 'package:mothmerah_app/core/theme/colors.dart';
 import 'package:mothmerah_app/core/widgets/scrollable_wrapper.dart';
-import 'package:mothmerah_app/views/product/data/product_model.dart';
 import 'package:mothmerah_app/views/product/ui/widgets/product_card.dart';
 import 'package:mothmerah_app/views/home/ui/widgets/home_header.dart';
 import 'package:mothmerah_app/views/home/ui/widgets/category_filter.dart';
@@ -12,6 +11,7 @@ import 'package:mothmerah_app/views/home/ui/widgets/promotional_banner.dart';
 import 'package:mothmerah_app/views/home/ui/widgets/bottom_navigation.dart';
 import 'package:mothmerah_app/views/cart/ui/logic/cubit/cart_cubit.dart';
 import 'package:mothmerah_app/views/cart/ui/logic/cubit/cart_state.dart';
+import 'package:mothmerah_app/views/product/data/product_model.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -154,7 +154,7 @@ class _HomeViewState extends State<HomeView> {
           );
         }
       },
-      builder: (context, state) {
+      builder: (context, cartState) {
         return Scaffold(
           backgroundColor: Colors.white,
           body: SafeArea(

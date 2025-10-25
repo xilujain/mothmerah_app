@@ -17,9 +17,10 @@ import 'package:mothmerah_app/views/profile/ui/logic/cubit/profile_cubit.dart';
 import 'package:mothmerah_app/views/profile/ui/profile_view.dart';
 import 'package:mothmerah_app/views/splash_view.dart';
 import 'package:mothmerah_app/views/home/ui/home_view.dart';
-import 'package:mothmerah_app/views/product/ui/product_detail_view.dart';
 import 'package:mothmerah_app/views/product/data/product_model.dart';
 import 'package:mothmerah_app/views/cart/ui/cart_view.dart';
+import 'package:mothmerah_app/views/product_detail/ui/product_detail_view.dart';
+import 'package:mothmerah_app/views/order_review/ui/order_review_view.dart';
 import 'package:mothmerah_app/views/cart/ui/logic/cubit/cart_cubit.dart';
 
 class Routes {
@@ -33,6 +34,7 @@ class Routes {
   static const String homeView = '/home';
   static const String productDetailView = '/product-detail';
   static const String cartView = '/cart';
+  static const String orderReviewView = '/order-review';
 }
 
 class AppRouter {
@@ -96,6 +98,8 @@ class AppRouter {
         );
       case Routes.cartView:
         return MaterialPageRoute(builder: (_) => const CartView());
+      case Routes.orderReviewView:
+        return MaterialPageRoute(builder: (_) => OrderReviewView());
       default:
     }
 
