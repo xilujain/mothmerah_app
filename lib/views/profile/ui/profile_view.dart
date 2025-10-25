@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mothmerah_app/core/routing/routes.dart';
-import 'package:mothmerah_app/core/theme/colors.dart';
 import 'package:mothmerah_app/core/theme/text_styles.dart';
 import 'package:mothmerah_app/core/widgets/scrollable_wrapper.dart';
 import 'package:mothmerah_app/views/profile/data/profile_model.dart';
@@ -115,34 +113,6 @@ class _ProfileViewState extends State<ProfileView> {
 
                   // Profile Content
                   ProfileContent(profile: profile),
-
-                  SizedBox(height: 20.h),
-
-                  // Home Button
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50.h,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            Routes.homeView,
-                            (route) => false,
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorsManager.kPrimaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.r),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: Text('🏠 الذهاب للصفحة الرئيسية'),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             );

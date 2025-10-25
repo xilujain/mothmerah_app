@@ -5,8 +5,6 @@ import 'package:mothmerah_app/views/auth/forget_password/ui/forget_password_view
 import 'package:mothmerah_app/views/auth/login/data/login_repository.dart';
 import 'package:mothmerah_app/views/auth/login/ui/logic/cubit/sign_in_cubit.dart';
 import 'package:mothmerah_app/views/auth/login/ui/sign_in_view.dart';
-import 'package:mothmerah_app/views/auth/new_password/data/new_password_repository.dart';
-import 'package:mothmerah_app/views/auth/new_password/ui/logic/cubit/new_password_cubit.dart';
 import 'package:mothmerah_app/views/auth/new_password/ui/new_password_view.dart';
 import 'package:mothmerah_app/views/auth/otp/ui/otp_view.dart';
 import 'package:mothmerah_app/views/auth/sign_up/data/signup_repository.dart';
@@ -69,17 +67,13 @@ class AppRouter {
       case Routes.forgetPasswordView:
         return MaterialPageRoute(builder: (_) => ForgetPasswordView());
       case Routes.otpView:
-        return MaterialPageRoute(builder: (_) => OtpView());
+        return MaterialPageRoute(
+          builder: (_) => OtpView(phoneOrEmail: settings.arguments as String?),
+        );
       case Routes.newPasswordView:
         return MaterialPageRoute(
-          builder: (_) => RepositoryProvider<NewPasswordRepository>(
-            create: (_) => NewPasswordRepository(Dio()),
-            child: BlocProvider(
-              create: (context) =>
-                  NewPasswordCubit(context.read<NewPasswordRepository>()),
-              child: NewPasswordView(),
-            ),
-          ),
+          builder: (_) =>
+              NewPasswordView(resetToken: settings.arguments as String?),
         );
       case Routes.profileView:
         return MaterialPageRoute(
